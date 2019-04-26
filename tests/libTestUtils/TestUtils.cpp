@@ -114,6 +114,7 @@ DSBlockHeader GenerateRandomDSBlockHeader() {
   uint128_t gasPrice = PRECISION_MIN_VALUE;
   SWInfo swInfo;
   map<PubKey, Peer> powDSWinners;
+  std::vector<PubKey> removeDSNodePubkeys;
   DSBlockHashSet hash;
   CommitteeHash committeeHash;
 
@@ -122,8 +123,9 @@ DSBlockHeader GenerateRandomDSBlockHeader() {
   }
 
   return DSBlockHeader(dsDifficulty, difficulty, leaderPubKey, blockNum,
-                       epochNum, gasPrice, swInfo, powDSWinners, hash, version,
-                       committeeHash, prevHash);
+                       epochNum, gasPrice, swInfo, powDSWinners,
+                       removeDSNodePubkeys, hash, version, committeeHash,
+                       prevHash);
 }
 
 MicroBlockHeader GenerateRandomMicroBlockHeader() {
@@ -206,10 +208,10 @@ FallbackBlockHeader GenerateRandomFallbackBlockHeader() {
 }
 
 DSBlockHeader createDSBlockHeader(const uint64_t& blockNum) {
-  return DSBlockHeader(DistUint8(), DistUint8(), GenerateRandomPubKey(),
-                       blockNum, DistUint64(), DistUint128(), SWInfo(),
-                       map<PubKey, Peer>(), DSBlockHashSet(), DistUint32(),
-                       CommitteeHash(), BlockHash());
+  return DSBlockHeader(
+      DistUint8(), DistUint8(), GenerateRandomPubKey(), blockNum, DistUint64(),
+      DistUint128(), SWInfo(), map<PubKey, Peer>(), std::vector<PubKey>(),
+      DSBlockHashSet(), DistUint32(), CommitteeHash(), BlockHash());
 }
 
 TxBlockHeader createTxBlockHeader(const uint64_t& blockNum) {
