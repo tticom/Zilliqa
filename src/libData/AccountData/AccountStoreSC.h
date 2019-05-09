@@ -53,8 +53,7 @@ class AccountStoreSC : public AccountStoreBase<MAP> {
   std::mutex m_mutexUpdateAccounts;
 
   /// the blocknum while executing each txn
-  uint64_t
-      m_curBlockNum{};
+  uint64_t m_curBlockNum{};
   /// the current contract address for each hop of invoking
   Address m_curContractAddr;
 
@@ -65,8 +64,7 @@ class AccountStoreSC : public AccountStoreBase<MAP> {
   uint128_t m_curAmount;
 
   /// the gas limit while executing each txn
-  uint64_t
-      m_curGasLimit{};
+  uint64_t m_curGasLimit{};
 
   /// the gas price while executing each txn
   uint128_t m_curGasPrice;
