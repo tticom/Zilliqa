@@ -199,7 +199,7 @@ bool SendJob::SendMessageSocketCore(const Peer& peer, const bytes& message,
       return false;
     }
 
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr {};
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = peer.m_ipAddress.convert_to<unsigned long>();
     serv_addr.sin_port = htons(peer.m_listenPortHost);
@@ -473,7 +473,7 @@ void P2PComm::ProcessBroadCastMsg(bytes& message, const Peer& from) {
 
 void P2PComm::CloseAndFreeBufferEvent(struct bufferevent* bufev) {
   int fd = bufferevent_getfd(bufev);
-  struct sockaddr_in cli_addr;
+  struct sockaddr_in cli_addr {};
   socklen_t addr_size = sizeof(struct sockaddr_in);
   getpeername(fd, (struct sockaddr*)&cli_addr, &addr_size);
   uint128_t ipAddr = cli_addr.sin_addr.s_addr;
@@ -509,7 +509,7 @@ void P2PComm::EventCallback(struct bufferevent* bev, short events,
 
   // Get the IP info
   int fd = bufferevent_getfd(bev);
-  struct sockaddr_in cli_addr;
+  struct sockaddr_in cli_addr {};
   socklen_t addr_size = sizeof(struct sockaddr_in);
   getpeername(fd, (struct sockaddr*)&cli_addr, &addr_size);
   Peer from(cli_addr.sin_addr.s_addr, cli_addr.sin_port);
@@ -652,7 +652,7 @@ void P2PComm::ReadCallback(struct bufferevent* bev, [[gnu::unused]] void* ctx) {
   if (len >= MAX_READ_WATERMARK_IN_BYTES) {
     // Get the IP info
     int fd = bufferevent_getfd(bev);
-    struct sockaddr_in cli_addr;
+    struct sockaddr_in cli_addr {};
     socklen_t addr_size = sizeof(struct sockaddr_in);
     getpeername(fd, (struct sockaddr*)&cli_addr, &addr_size);
     Peer from(cli_addr.sin_addr.s_addr, cli_addr.sin_port);
@@ -747,7 +747,7 @@ void P2PComm::StartMessagePump(uint32_t listen_port_host,
 
   m_dispatcher = dispatcher;
 
-  struct sockaddr_in serv_addr;
+  struct sockaddr_in serv_addr {};
   memset(&serv_addr, 0, sizeof(struct sockaddr_in));
   serv_addr.sin_family = AF_INET;
   serv_addr.sin_port = htons(listen_port_host);
